@@ -8,5 +8,5 @@
   - Link: [Lab 2](https://github.com/dungtt04/web207/tree/master/Lab%202)
 3. Lab 3:
   - Ngày thực hiện: Mar 7, 2024
-  - Link: [Lab 3](https://github.com/dungtt04/web207/tree/master/Lab%)
+  - Link: [Lab 3](https://github.com/dungtt04/web207/tree/master/Lab%203)
     
