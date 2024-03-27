@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container" ng-controller="myctrl">
+    <form>
+      <div class="form-group">
+        <label for="">Fullname</label>
+        <input type="text" name="" id="" ng-model="student.fullname" class="form-control" placeholder=""
+          aria-describedby="helpId">
+      </div>
+      <div class="form-group">
+        <label for="">Birthday</label>
+        <input type="text" name="" id="" ng-model="student.birthday" class="form-control" placeholder=""
+          aria-describedby="helpId">
+      </div>
+      <div class="form-group">
+        <label for="">Mark</label>
+        <input type="text" name="" id="" ng-model="student.mark" class="form-control" placeholder=""
+          aria-describedby="helpId">
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-success" ng-click="insert()" ng-show="index==-1">Thêm</button>
+        <button type="button" class="btn btn-primary" ng-click="update()" ng-hide="index==-1">Sửa</button>
+        <button type="button" class="btn btn-danger" ng-click="delete()" ng-hide="index==-1">Xóa</button>
+        <button type="button" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+        <button type="button" class="btn btn-primary" ng-click="clear()">Mới</button>
+      </div>
+    </form>
+    <table class="table">
+      <tr>
+        <th>Fullname</th>
+        <th>Birthday</th>
+        <th>Mark</th>
+        <th>Classification</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="st in students">
+        <td>{{st.fullname}}</td>
+        <td>{{st.birthday}}</td>
+        <td>{{st.mark}}</td>
+        <td>
+            <span ng-if="st.mark < 3">Yếu kém</span>
+            <span ng-if="st.mark >= 5 && st.mark <=8">Trung bình/Khá</span>
+            <span ng-if="st.mark >8">Xuất sắc</span>
+        </td>
+        <td><a href="" ng-click="edit($index, $event)" class="btn btn-warning">Sửa</a></td>
+      </tr>
+    </table>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script>
+    var app = angular.module('myapp', []);
+    app.controller('myctrl', ['$scope', function ($scope) {
+      $scope.students = [];
+      $scope.student = {};
+      $scope.index = -1;
+
+      $scope.clear = function () {
+        $scope.student = {};
+        $scope.index = -1;
+      }
+      $scope.insert = function () {
+        $scope.students.push(angular.copy($scope.student));
+        $scope.clear();
+      }
+      $scope.update = function () {
+        $scope.students[$scope.index] = angular.copy($scope.student);
+      }
+      $scope.delete = function () {
+        $scope.students.splice($scope.index, 1);
+        $scope.clear();
+      }
+      $scope.cancel = function () {
+        if ($scope.index == -1) {
+          $scope.clear();
+        }
+        else {
+          $scope.edit($scope.index);
+        }
+      }
+      $scope.edit = function (index, event) {
+        event.preventDefault(); // Prevent default action of link
+        $scope.index = index;
+        $scope.student = angular.copy($scope.students[index]);
+      }
+    }]);
+  </script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
